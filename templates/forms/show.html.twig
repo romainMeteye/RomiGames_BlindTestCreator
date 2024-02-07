@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Forms{% endblock %}
+
+{% block body %}
+    <h1>Forms</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ form.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ form.Title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ form.Description }}</td>
+            </tr>
+            <tr>
+                <th>Expiration_date</th>
+                <td>{{ form.expirationDate ? form.expirationDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_forms_index') }}">back to list</a>
+
+    <a href="{{ path('app_forms_edit', {'id': form.id}) }}">edit</a>
+
+    {{ include('forms/_delete_form.html.twig') }}
+{% endblock %}

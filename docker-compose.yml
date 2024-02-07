@@ -1,0 +1,40 @@
+version: '3'
+services:
+  symfony-app:
+    image: webpoll
+    volumes:
+      - ./:/var/www/html
+      - ./ssl-certs:/etc/ssl/web
+    environment:
+      TZ: UTC
+      PUID: ${UID:-9999}
+      PGID: ${GID:-9999}
+    ports:
+      - "80:80"
+      - "443:443"
+##### SECRETS ###################################
+  services:
+    myapp:
+      image: myapp:latest
+      secrets:
+        - my_secret
+  secrets:
+    my_secret:
+      file: ./my_secret.txt
+##### OTHER CONTAINERS SUCH AS REDIS OR DATABASE ###################################
+  
+  db:
+    image: mariadb
+    environment:
+      TZ: UTC
+      MYSQL_ROOT_PASSWORD: vr70qcB9#cb7Pqm*f
+      MYSQL_DATABASE: webpoll
+    volumes:
+      - "./db/data:/var/lib/mysql"
+      - "./db/dump:/docker-entrypoint-initdb.d"
+    ports:
+      - "3307:3306"
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"

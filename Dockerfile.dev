@@ -1,0 +1,36 @@
+ARG  PHP_VERSION=8.2
+FROM shinsenter/symfony:php${PHP_VERSION}
+
+# ==========================================================
+
+# you may want to install some PHP modules
+# e.g: the following line will install imagick, pgsql, solr modules
+RUN phpaddmod imagick pgsql solr
+
+# ==========================================================
+
+# Control your timezone
+ENV TZ="UTC"
+
+# sets GID and UID
+ENV PUID=9999
+ENV PGID=9999
+
+# sets web server root path
+ENV WEBHOME="/var/www/html"
+
+# ==========================================================
+
+# The project name to be pulled by "composer create-project"
+# Default: ENV SYMFONY_PROJECT="symfony/skeleton"
+# Example: ENV SYMFONY_PROJECT="sylius/sylius-standard"
+ENV SYMFONY_PROJECT="symfony/skeleton"
+
+# Set to "true" to install packages for development purposes
+ENV SYMFONY_INSTALL_DEVKIT=false
+
+# ==========================================================
+
+# You can easily change PHP-FPM configurations
+# by using pre-defined Docker's environment variables.
+# Learn more: https://code.shin.company/php#customize-docker-image

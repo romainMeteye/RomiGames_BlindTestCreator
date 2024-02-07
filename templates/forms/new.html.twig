@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Forms{% endblock %}
+
+{% block body %}
+    <h1>Créer un nouveau blind test</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.Title) }}
+    {{ form_row(form.Description) }}
+    {{ form_row(form.expiration_date) }}
+     {{ form_row(form.image) }}
+     <div style="display: none;">
+        {{ form_row(form.User) }}
+    </div>
+    <h3>Questions</h3>
+    <div id="questions-container" data-prototype="{{ form_widget(form.questions.vars.prototype)|e('html_attr') }}">
+        {% for question in form.questions %}
+            <div class="question-item">
+                {{ form_row(question) }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <button type="button" id="add-question">Ajouter une question</button>
+    <button type="submit">Sauvegarder</button>
+{{ form_end(form) }}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var container = document.getElementById('questions-container');
+        var addButton = document.getElementById('add-question');
+        var index = container.querySelectorAll('.question-item').length;
+
+        addButton.addEventListener('click', function() {
+            var prototype = container.getAttribute('data-prototype');
+            var newForm = prototype.replace(/__name__/g, index);
+            container.insertAdjacentHTML('beforeend', newForm);
+            index++;
+        });
+    });
+</script>
+{% endblock %}

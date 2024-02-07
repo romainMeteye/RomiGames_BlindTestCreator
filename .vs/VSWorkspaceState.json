@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\Controller",
+    "\\src\\Entity",
+    "\\src\\Form",
+    "\\templates",
+    "\\templates\\forms",
+    "\\tests"
+  ],
+  "SelectedNode": "\\tests\\bootstrap.php",
+  "PreviewInSolutionExplorer": false
+}
